@@ -6,9 +6,7 @@ import { createClient } from '@/lib/supabase/client';
 import { BookOpen, LogOut, Menu, X } from 'lucide-react';
 import type { Profile } from '@/lib/supabase/database.types';
 
-interface NavbarProps {
-  profile: Profile;
-}
+interface NavbarProps { profile: Profile; }
 
 export default function Navbar({ profile }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,57 +15,47 @@ export default function Navbar({ profile }: NavbarProps) {
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
-    router.push('/login');
+    router.push('/');
   };
 
   return (
-    <nav className="border-b border-bg-border bg-bg-surface/80 backdrop-blur-sm sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-              <BookOpen className="w-5 h-5 text-emerald-400" />
-            </div>
-            <div className="hidden sm:block">
-              <span className="heading-display text-sm font-bold gradient-text">
-                Quran Tracker
+    <nav className="border-b sticky top-0 z-50 backdrop-blur-md" style={{background:'rgba(6,10,14,0.85)', borderColor:'var(--bg-border)'}}>
+      <div className="max-w-7xl mx-auto px-5 h-16 flex items-center justify-between">
+        {/* Logo */}
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{background:'rgba(13,148,136,0.1)', border:'1px solid rgba(13,148,136,0.2)'}}>
+            <BookOpen className="w-4 h-4" style={{color:'var(--teal-light)'}} />
+          </div>
+          <span className="font-display font-semibold gradient-text hidden sm:block">Quran Hifz Tracker</span>
+        </div>
+
+        {/* Right */}
+        <div className="flex items-center gap-3">
+          <span className="hidden sm:inline-flex text-xs font-medium px-2.5 py-1 rounded-full"
+            style={profile.role === 'mentor'
+              ? {background:'rgba(201,168,76,0.1)', color:'var(--gold-light)', border:'1px solid rgba(201,168,76,0.2)'}
+              : {background:'rgba(13,148,136,0.1)', color:'var(--teal-light)', border:'1px solid rgba(13,148,136,0.2)'}
+            }>
+            {profile.role === 'mentor' ? '🎓 Mentor' : '📖 Student'}
+          </span>
+
+          <div className="hidden sm:flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{background:'rgba(13,148,136,0.15)', border:'1px solid rgba(13,148,136,0.25)'}}>
+              <span className="text-xs font-bold" style={{color:'var(--teal-light)'}}>
+                {profile.name.charAt(0).toUpperCase()}
               </span>
             </div>
+            <span className="text-sm" style={{color:'var(--text-secondary)'}}>{profile.name}</span>
           </div>
 
-          {/* Right side */}
-          <div className="flex items-center gap-4">
-            {/* Role badge */}
-            <span
-              className={`hidden sm:inline-flex text-xs font-medium px-2.5 py-1 rounded-full border ${
-                profile.role === 'mentor'
-                  ? 'bg-gold/10 text-gold border-gold/20'
-                  : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-              }`}
-            >
-              {profile.role === 'mentor' ? '🎓 Mentor' : '📖 Student'}
-            </span>
-
-            {/* User name */}
-            <div className="hidden sm:flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center">
-                <span className="text-emerald-400 text-xs font-bold">
-                  {profile.name.charAt(0).toUpperCase()}
-                </span>
-              </div>
-              <span className="text-text-secondary text-sm">{profile.name}</span>
-            </div>
-
-            {/* Sign out button */}
-            <button
-              onClick={handleSignOut}
-              className="flex items-center gap-1.5 text-text-muted hover:text-red-400 transition-colors text-sm px-3 py-1.5 rounded-lg hover:bg-red-500/10"
-            >
-              <LogOut className="w-4 h-4" />
-              <span className="hidden sm:inline">Sign out</span>
-            </button>
-          </div>
+          <button onClick={handleSignOut}
+            className="flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-lg transition-all"
+            style={{color:'var(--text-muted)'}}
+            onMouseOver={e=>{(e.currentTarget as HTMLButtonElement).style.color='#f87171';(e.currentTarget as HTMLButtonElement).style.background='rgba(239,68,68,0.08)';}}
+            onMouseOut={e=>{(e.currentTarget as HTMLButtonElement).style.color='var(--text-muted)';(e.currentTarget as HTMLButtonElement).style.background='transparent';}}>
+            <LogOut className="w-4 h-4" />
+            <span className="hidden sm:inline">Sign out</span>
+          </button>
         </div>
       </div>
     </nav>
