@@ -1,0 +1,209 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Font definitions - using link tags in layout.tsx */
+:root {
+  --font-outfit: 'Outfit', system-ui, sans-serif;
+  --font-cinzel: 'Cinzel', Georgia, serif;
+  --bg-base: #080f12;
+  --bg-surface: #0d1a1f;
+  --bg-card: #111f25;
+  --bg-elevated: #162830;
+  --bg-border: #1e3a42;
+  --emerald: #10b981;
+  --emerald-light: #34d399;
+  --gold: #d4af37;
+  --gold-light: #f0d060;
+  --text-primary: #e5e7eb;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+/* Islamic geometric pattern background */
+.geometric-bg {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2310b981' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Star pattern for hero sections */
+.star-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpolygon points='40,5 42,35 72,35 47,53 57,83 40,65 23,83 33,53 8,35 38,35' fill='%23d4af37' fill-opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--emerald);
+}
+
+/* Card hover glow */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  border-color: rgba(16, 185, 129, 0.3);
+  box-shadow: 0 0 24px rgba(16, 185, 129, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Emerald glow button */
+.btn-emerald {
+  background: linear-gradient(135deg, #059669, #10b981);
+  transition: all 0.2s ease;
+}
+
+.btn-emerald:hover {
+  background: linear-gradient(135deg, #10b981, #34d399);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-emerald:active {
+  transform: translateY(0);
+}
+
+/* Gold accent */
+.gold-text {
+  color: var(--gold);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #10b981, #d4af37);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Input styles */
+.input-dark {
+  background: var(--bg-surface);
+  border: 1px solid var(--bg-border);
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.input-dark:focus {
+  outline: none;
+  border-color: var(--emerald);
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.15);
+}
+
+.input-dark::placeholder {
+  color: var(--text-muted);
+}
+
+/* Success animation overlay */
+@keyframes successFade {
+  0% { opacity: 0; transform: scale(0.8); }
+  20% { opacity: 1; transform: scale(1.05); }
+  80% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.95); }
+}
+
+.success-toast {
+  animation: successFade 2s ease-in-out forwards;
+}
+
+/* Pulse for streak */
+@keyframes streakPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+.streak-number {
+  animation: streakPulse 3s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* Loading skeleton */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-card) 25%,
+    var(--bg-elevated) 50%,
+    var(--bg-card) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Divider with gradient */
+.divider-gradient {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--bg-border), transparent);
+}
+
+/* Arabic calligraphy style heading */
+.heading-display {
+  font-family: var(--font-cinzel);
+  letter-spacing: 0.05em;
+}
+
+/* Transition utilities */
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Card base */
+@layer components {
+  .card {
+    @apply bg-bg-card border border-bg-border rounded-xl p-5 shadow-card;
+  }
+
+  .card-elevated {
+    @apply bg-bg-elevated border border-bg-border rounded-xl p-5 shadow-card;
+  }
+
+  .btn-primary {
+    @apply btn-emerald text-white font-semibold py-2.5 px-5 rounded-lg text-sm;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent border border-bg-border text-text-secondary hover:border-emerald-500 hover:text-emerald-400 font-medium py-2.5 px-5 rounded-lg text-sm transition-all duration-200;
+  }
+
+  .badge-learn {
+    @apply bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs px-2 py-0.5 rounded-full;
+  }
+
+  .badge-revise {
+    @apply bg-gold/10 text-gold border border-gold/20 text-xs px-2 py-0.5 rounded-full;
+  }
+
+  .badge-completed {
+    @apply bg-text-muted/10 text-text-muted border border-bg-border text-xs px-2 py-0.5 rounded-full;
+  }
+}
